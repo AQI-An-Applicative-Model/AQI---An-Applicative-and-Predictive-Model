@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AQI Result</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:radial-gradient(circle at top,#1e293b,#0f172a);
+  color:#fff;
+  text-align:center;
+}
+
+.container{
+  width:90%;
+  margin:auto;
+  padding:20px;
+}
+
+.header h1{
+  font-size:36px;
+  margin:5px;
+}
+.header p{
+  color:#94a3b8;
+}
+
+.aqi-card{
+  margin:25px auto;
+  padding:30px;
+  width:300px;
+  border-radius:20px;
+  color:black;
+}
+
+.aqi-card h1{
+  font-size:60px;
+  margin:0;
+}
+
+.primary-box{
+  margin:15px auto;
+  padding:12px 20px;
+  border-radius:25px;
+  background:linear-gradient(135deg,#facc15,#f97316);
+  color:black;
+  font-weight:bold;
+  display:inline-block;
+  box-shadow:0 8px 20px rgba(250,204,21,0.3);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 2fr;
+  gap:20px;
+  margin-top:20px;
+}
+
+.card{
+  background:rgba(255,255,255,0.07);
+  backdrop-filter:blur(10px);
+  border-radius:16px;
+  padding:15px;
+}
+
+.pollutant{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.graph{
+  background:#fff;
+  border-radius:16px;
+  padding:15px;
+}
+
+.tip{
+  margin-top:15px;
+  font-size:14px;
+  color:#cbd5f5;
+}
+
+button.back{
+  margin-top:25px;
+  padding:12px 25px;
+  border:none;
+  border-radius:25px;
+  background:linear-gradient(135deg,#38bdf8,#06b6d4);
+  color:#000;
+  cursor:pointer;
+}
+
+@media(max-width:768px){
+  .grid{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>{{ city }}</h1>
+    <p>Air Quality Dashboard</p>
+  </div>
+
+  <div class="aqi-card" id="aqiBox">
+    <h1>{{ aqi }}</h1>
+    <div>{{ category }}</div>
+  </div>
+
+  <!-- PROMINENT POLLUTANT -->
+  <div class="primary-box">
+    🌫️ Prominent Pollutant: {{ primary }}
+  </div>
+
+  <div class="grid">
+
+    <!-- POLLUTANTS -->
+    <div class="card">
+      <div class="pollutant"><b>PM10</b><span>{{ pm10 }}</span></div>
+      <div class="pollutant"><b>PM2.5</b><span>{{ pm25 }}</span></div>
+      <div class="pollutant"><b>Ozone</b><span>{{ ozone }}</span></div>
+
+      <div class="tip">Health Tip: {{ health_advice }}</div>
+    </div>
+
+    <!-- GRAPH -->
+    <div class="graph">
+      <h3 style="color:black">AQI Trend</h3>
+      <canvas id="chart"></canvas>
+    </div>
+
+  </div>
+
+  <button class="back" onclick="history.back()">← Back</button>
+
+</div>
+
+<script>
+const aqiValues = {{ aqi_values | tojson }};
+
+let color = "#22c55e";
+
+if({{ aqi }} > 100) color = "#facc15";
+if({{ aqi }} > 200) color = "#ef4444";
+
+document.getElementById("aqiBox").style.background = color;
+
+new Chart(document.getElementById("chart"), {
+  type: 'line',
+  data: {
+    labels: ["Day1","Day2","Day3","Day4","Day5","Day6","Today"],
+    datasets: [{
+      data: aqiValues,
+      borderColor: "#06b6d4",
+      backgroundColor: "rgba(6,182,212,0.2)",
+      fill: true,
+      tension: 0.4
+    }]
+  },
+  options: {
+    plugins:{legend:{display:false}},
+    scales:{y:{beginAtZero:true}}
+  }
+});
+</script>
+
+</body>
+</html>
