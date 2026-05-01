@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AQI Predictor</title>
+
+<style>
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:radial-gradient(circle at top,#1e293b,#0f172a);
+  color:#fff;
+  text-align:center;
+}
+
+.hero{
+  padding:60px 20px;
+}
+
+.hero h1{
+  font-size:48px;
+  background:linear-gradient(90deg,#38bdf8,#22c55e);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.search input{
+  padding:14px;
+  width:260px;
+  border:none;
+  border-radius:10px;
+  background:rgba(255,255,255,0.1);
+  color:#fff;
+}
+
+.search button{
+  padding:14px 20px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(135deg,#38bdf8,#06b6d4);
+  cursor:pointer;
+}
+
+.cities{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:12px;
+  width:85%;
+  margin:40px auto;
+}
+
+.city-item{
+  padding:10px;
+  border-radius:25px;
+  background:rgba(255,255,255,0.08);
+  text-decoration:none;
+  color:white;
+}
+
+.city-item:hover{
+  background:#22c55e;
+}
+</style>
+</head>
+
+<body>
+
+<div class="hero">
+  <h1>AQI Predictor</h1>
+
+  <form action="/predict" method="GET" class="search">
+    <input name="city" placeholder="Enter city..." required>
+    <button type="submit">Check AQI</button>
+  </form>
+</div>
+
+<div class="cities">
+  <a class="city-item" href="/predict?city=Patna">Patna</a>
+  <a class="city-item" href="/predict?city=New Delhi">New Delhi</a>
+  <a class="city-item" href="/predict?city=Mumbai">Mumbai</a>
+  <a class="city-item" href="/predict?city=Gandhinagar">Gandhinagar</a>
+  <a class="city-item" href="/predict?city=Surat">Surat</a>
+  <a class="city-item" href="/predict?city=Chennai">Chennai</a>
+  <a class="city-item" href="/predict?city=Kolkata">Kolkata</a>
+  <a class="city-item" href="/predict?city=Lucknow">Lucknow</a>
+  <a class="city-item" href="/predict?city=Bengaluru">Bengaluru</a>
+  <a class="city-item" href="/predict?city=Ahmedabad">Ahmedabad</a>
+  <a class="city-item" href="/predict?city=Kanpur">Kanpur</a>
+  <a class="city-item" href="/predict?city=Jaipur">Jaipur</a>
+  <a class="city-item" href="/predict?city=Indore">Indore</a>
+  <a class="city-item" href="/predict?city=Nagpur">Nagpur</a>
+  <a class="city-item" href="/predict?city=Srinagar">Srinagar</a>
+  <a class="city-item" href="/predict?city=Thane">Thane</a>
+  <a class="city-item" href="/predict?city=Hyderabad">Hyderabad</a>
+  <a class="city-item" href="/predict?city=Visakhapatnam">Visakhapatnam</a>
+  <a class="city-item" href="/predict?city=Bhopal">Bhopal</a>
+  <a class="city-item" href="/predict?city=Pune">Pune</a>
+</div>
+
+</body>
+</html>
